@@ -1,0 +1,6 @@
+syntax = "proto3";
+package shrink.issue;
+
+message SomeMessage {
+  string message = 1;
+}
