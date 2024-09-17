@@ -1,44 +1,14 @@
 # cursive-shrink-issue
 
-FIXME: description
+This is a minimal example to reproduce an issue with cursive's shrink behavior.  
+The issue is that Cursive tried to call `clojure.lang.RT.get` to find the `:shrunk` key, but if the implementation of
+`APersistentMap` doesn't allow access to "invalid" keys, it will throw an exception.
 
-## Installation
+In our case, we use [pronto](https://github.com/AppsFlyer/pronto) which is a Clojure library that allows us to interact
+with Protocol Buffers in a Clojure-friendly way.
 
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar cursive-shrink-issue-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2024 FIXME
-
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+However, pronto's `APersistentMap` implementation doesn't allow access to keys that are not defined in the `.proto`
+file.  
+This causes Cursive to throw an exception, while `lein test ...` works fine.  
+Read more about `pronto`'s design
+decision [here](https://github.com/AppsFlyer/pronto/tree/master?tab=readme-ov-file#fine-print---please-read).
