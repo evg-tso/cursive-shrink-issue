@@ -12,3 +12,5 @@ file.
 This causes Cursive to throw an exception, while `lein test ...` works fine.  
 Read more about `pronto`'s design
 decision [here](https://github.com/AppsFlyer/pronto/tree/master?tab=readme-ov-file#fine-print---please-read).
+
+Issue can be tracked here: https://github.com/cursive-ide/cursive/issues/2966  
